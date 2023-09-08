@@ -1,0 +1,34 @@
+{
+  "name": "three.js-table",
+  "description": "",
+  "main": "index.js",
+  "authors": "",
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.8.3",
+    "angular-animate": "^1.8.3",
+    "angular-bootstrap": "^2.5.0",
+    "angular-bootstrap-colorpicker": "^3.0.32",
+    "angular-file-saver": "https://github.com/elquimeras/angular-file-saver.git#hotfix/update-file-saver-module",
+    "angular-sanitize": "^1.8.3",
+    "angular-swiper": "^0.4.0",
+    "angular-ui-select": "^0.19.8",
+    "angular-ui-router": "^1.0.30",
+    "animate.css": "^3.5.1",
+    "blob-polyfill": "~1.0.20150320",
+    "bootstrap": "3.3.7",
+    "font-awesome": "4.7.0",
+    "gsap": "1.13.1",
+    "jquery": "^3.6.3",
+    "latolatin-webfont": "^1.0.1",
+    "three.js": "^0.84.0"
+  }
+}

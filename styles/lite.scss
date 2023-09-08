@@ -1,0 +1,137 @@
+body {
+  font-family: Lato, Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+section.section-1 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  background: #373a3c;
+  position: relative;
+  z-index: 10;
+  .skew {
+    content: '';
+    position: absolute;
+    height: 100px;
+    left: -150px;
+    right: -150px;
+    bottom: -50px;
+    transform: rotate(10deg);
+    background: #373a3c;
+  }
+  .text-wrapper {
+    h1 {
+      font-weight: 700;
+      font-size: 36px;
+      margin: 0;
+      color: white;
+      padding: 0 15px;
+    }
+    h2 {
+      font-weight: 300;
+      color: white;
+      padding: 0 15px;
+      margin: 0;
+    }
+  }
+}
+
+#wrapper {
+  overflow: hidden;
+}
+
+section.placeholder {
+  min-height: 100vh;
+  position: relative;
+  opacity: 0;
+  color: #babab9;
+  font-size: 18px;
+  line-height: 30px;
+  padding: 15px;
+  pointer-events: none;
+}
+
+section.section-2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  .text-wrapper {
+    color: #babab9;
+    font-size: 18px;
+    line-height: 30px;
+    padding: 15px;
+  }
+}
+
+.skew {
+  transition: 0.05s linear all;
+}
+
+section.section-3 {
+  width: 100%;
+  background: #373a3c;
+  position: relative;
+  z-index: 10;
+  .skew {
+    content: '';
+    position: absolute;
+    height: 200px;
+    left: -150px;
+    right: -150px;
+    z-index: -1;
+    top: -100px;
+    transform: rotate(10deg);
+    background: #373a3c;
+  }
+  ul {
+    list-style: none;
+    padding: 0px;
+    margin-bottom: 0;
+    li {
+      display: block;
+      width: 100%;
+      padding: 20px 15px;
+      &:nth-child(2) {
+        background: rgba(255, 255, 255, 0.025);
+      }
+      &:nth-child(3) {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      &:nth-child(4) {
+        background: rgba(255, 255, 255, 0.075);
+      }
+      &:nth-child(5) {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      &:nth-child(6) {
+        background: rgba(255, 255, 255, 0.125);
+      }
+      &:nth-child(7) {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+      }
+    }
+  }
+}

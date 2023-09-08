@@ -1,0 +1,31 @@
+<div ng-controller="desktopCtrl as desktopVm" id="desktop-screen">
+  <div class="toolbar">
+    <div class="back" ng-if="desktopVm.currentProject.address.length" ng-click="desktopVm.goBack()">
+      <img src="images/chevron-left.png" width="14" height="14" alt=""> <span>Back</span>
+    </div>
+    <div class="address">
+      {{desktopVm.currentProject.address}}
+    </div>
+  </div>
+  <div class="browser-body">
+    <div class="project-preview" ng-include="desktopVm.currentProject.template">
+
+    </div>
+    <div class="projects-wrapper" ng-if="!desktopVm.currentProject.address.length">
+
+
+      <div class="single-project" ng-repeat="project in desktopVm.projects" ng-click="desktopVm.loadProject(project)">
+        <div class="project-helper">
+          <div class="project-image" ng-attr-style="background-color:{{project.color}};">
+            <img ng-src="{{project.logo}}">
+          </div>
+          <div class="project-name">
+            {{project.name}}
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

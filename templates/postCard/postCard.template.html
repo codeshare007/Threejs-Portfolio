@@ -1,0 +1,8 @@
+<form name="contactForm" class="contact-form" novalidate>
+  <h2>Contact me!</h2>
+  <input class="title-field" type="text" name="title" placeholder="Title" ng-model="vm.contactForm.title" required>
+  <textarea class="content-field" name="content" placeholder="Message content" ng-model="vm.contactForm.content" required></textarea>
+  <input class="name-field" name="name" type="text" placeholder="Your name" ng-model="vm.contactForm.name" required>
+  <input name="email" class="email-field" type="email" placeholder="Your e-mail" ng-model="vm.contactForm.email" required>
+  <button class="send-button" ng-click="vm.sendEmail()" ng-class="{'disabled': contactForm.$invalid}">Send</button>
+</form>

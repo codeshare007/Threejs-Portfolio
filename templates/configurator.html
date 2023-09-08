@@ -1,0 +1,771 @@
+<div class="trigger" ng-click="configCollapsed = !!!configCollapsed">
+  Configurator
+</div>
+<div class="scroll-wrapper">
+  <uib-accordion close-others="true">
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.basicForm.$invalid}">Basic <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.basicForm" novalidate>
+        <div ng-repeat="i in vm.config.basic.socials track by $index">
+          <div class="form-group">
+            <label class="control-label">Social #{{$index + 1}} Name</label>
+            <input type="text" class="form-control" ng-model="vm.config.basic.socials[$index].name" name="socialName{{$index}}" required>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Social #{{$index + 1}} <a target="_blank" href="http://fontawesome.io/icons/">Icon code</a></label>
+            <input type="text" class="form-control" ng-model="vm.config.basic.socials[$index].icon" name="socialIcon{{$index}}" required>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Social #{{$index + 1}} URL</label>
+            <input type="text" class="form-control" ng-model="vm.config.basic.socials[$index].url" name="socialUrl{{$index}}" required>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-secondary btn-sm" ng-if="$index>0" ng-click="vm.removeSocial(vm.config.basic.socials, $index)">Remove Social Link</button>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled">
+          <button class="btn btn-info" ng-click="vm.addSocial(vm.config.basic.socials)">Add another Social Link</button>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Mobile heading</label>
+          <textarea type="text" class="form-control no-resize" ng-model="vm.config.basic.heading" name="heading" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Mobile subheading</label>
+          <textarea type="text" class="form-control no-resize" ng-model="vm.config.basic.subheading" name="subheading" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Mobile info about you</label>
+          <textarea type="text" class="form-control no-resize" ng-model="vm.config.basic.about" name="about" required></textarea>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.generalForm.$invalid}">General <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.generalForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Camera type</label>
+          <ui-select ng-model="vm.config.general.cameraType.model" theme="bootstrap" search-enabled="false">
+            <ui-select-match placeholder="Select camera type">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="item in vm.cameraTypes">
+              <div ng-bind-html="item"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Elastic camera</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.elastic" ng-value="true" name="elasticradio">On</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.elastic" ng-value="false" name="elasticradio">Off</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Camera distance</label>
+          <input type="number" class="form-control" ng-model="vm.config.general.cameraType.distance" name="cameraDistance" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Light type</label>
+          <ui-select ng-model="vm.config.general.lightType.model" theme="bootstrap" search-enabled="false">
+            <ui-select-match placeholder="Select light type">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="item in vm.cameraTypes">
+              <div ng-bind-html="item"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Light distance</label>
+          <input type="number" class="form-control" ng-model="vm.config.general.lightType.distance" name="lightDistance" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Light intensity</label>
+          <input type="number" class="form-control" ng-model="vm.config.general.lightIntensity" name="lightIntensity" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Ambient light intensity</label>
+          <input type="number" class="form-control" ng-model="vm.config.general.ambientIntensity" name="ambientIntensity" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Background color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.general.bgColor}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.general.bgColor" name="bgColor"
+              required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Shadows</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.shadows" ng-value="true" name="shadowradio">On</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.shadows" ng-value="false" name="shadowradio">Off</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Downscale on Hi-res displays</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.downscale" ng-value="true" name="downscaleradio">On</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.downscale" ng-value="false" name="downscaleradio">Off</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Antialiasing</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.antialiasing" ng-value="true" name="antialiasingradio">On</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.general.antialiasing" ng-value="false" name="antialiasingradio">Off</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.deskForm.$invalid}">Desk <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.deskForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Width</label>
+          <input type="number" class="form-control" ng-model="vm.config.desk.width" name="deskWidth" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Height</label>
+          <input type="number" class="form-control" ng-model="vm.config.desk.height" name="deskHeight" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Length</label>
+          <input type="number" class="form-control" ng-model="vm.config.desk.length" name="deskLength" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Thickness</label>
+          <input type="number" class="form-control" ng-model="vm.config.desk.thickness" name="deskThickness" required>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.desk.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.desk.color" name="deskColor"
+              required />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.phoneForm.$invalid}">Phone <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.phoneForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.phone.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.phone.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled">
+          <label class="control-label">Content type</label>
+          <ui-select ng-model="vm.config.phone.contentType" theme="bootstrap" search-enabled="false">
+            <ui-select-match placeholder="Select content type">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="item in vm.phoneContentTypes">
+              <div ng-bind-html="item"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled && vm.config.phone.contentType == 'url'">
+          <label class="control-label">Project URL</label>
+          <input type="text" class="form-control" ng-model="vm.config.phone.url" name="phoneUrl" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled && vm.config.phone.contentType == 'html'">
+          <label class="control-label">HTML Project path</label>
+          <input type="text" class="form-control" ng-model="vm.config.phone.path" name="phonePath" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled && vm.config.phone.contentType == 'invision'">
+          <label class="control-label">InVision project URL</label>
+          <input type="text" class="form-control" ng-model="vm.config.phone.invision" name="phoneInvision" required>
+        </div>
+        <div ng-if="vm.config.phone.enabled && vm.config.phone.contentType == 'slides'">
+          <div class="form-group" ng-repeat="i in vm.config.phone.slides track by $index">
+            <label class="control-label">Slide {{$index + 1}} image</label>
+            <div class="input-group w-100">
+              <input type="text" class="form-control" ng-model="vm.config.phone.slides[$index]" name="phoneSlide{{$index}}" required>
+              <span class="input-group-btn" ng-if="$index>0">
+                <button class="btn btn-default" ng-click="vm.removeSlide(vm.config.phone.slides, $index)" type="button">Remove</button>
+            </span>
+            </div>
+          </div>
+          <div class="form-group" ng-if="vm.config.phone.enabled">
+            <button class="btn btn-info" ng-click="vm.addSlide(vm.config.phone.slides)">Add another slide</button>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled">
+          <label class="control-label">Color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.phone.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.phone.color" name="phoneColor"
+              required />
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.phone.x" name="phoneX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.phone.y" name="phoneY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.phone.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.phone.rotation" name="phoneRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.tabletForm.$invalid}">Tablet <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.tabletForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.tablet.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.tablet.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled">
+          <label class="control-label">Content type</label>
+          <ui-select ng-model="vm.config.tablet.contentType" theme="bootstrap" search-enabled="false">
+            <ui-select-match placeholder="Select content type">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="item in vm.tabletContentTypes">
+              <div ng-bind-html="item"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled && vm.config.tablet.contentType == 'url'">
+          <label class="control-label">Project URL</label>
+          <input type="text" class="form-control" ng-model="vm.config.tablet.url" name="tabletUrl" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled && vm.config.tablet.contentType == 'html'">
+          <label class="control-label">HTML Project path</label>
+          <input type="text" class="form-control" ng-model="vm.config.tablet.path" name="tabletPath" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled && vm.config.tablet.contentType == 'invision'">
+          <label class="control-label">InVision project URL</label>
+          <input type="text" class="form-control" ng-model="vm.config.tablet.invision" name="tabletInvision" required>
+        </div>
+        <div ng-if="vm.config.tablet.enabled && vm.config.tablet.contentType == 'slides'">
+          <div class="form-group" ng-repeat="i in vm.config.tablet.slides track by $index">
+            <label class="control-label">Slide {{$index + 1}} image</label>
+            <div class="input-group w-100">
+              <input type="text" class="form-control" ng-model="vm.config.tablet.slides[$index]" name="tabletSlide{{$index}}" required>
+              <span class="input-group-btn" ng-if="$index>0">
+                <button class="btn btn-default" ng-click="vm.removeSlide(vm.config.tablet.slides, $index)" type="button">Remove</button>
+            </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-info" ng-click="vm.addSlide(vm.config.tablet.slides)">Add another slide</button>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled">
+          <label class="control-label">Tablet color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.tablet.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.tablet.color" name="tabletColor"
+              required />
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.tablet.x" name="tabletX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.tablet.y" name="tabletY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.tablet.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.tablet.rotation" name="tabletRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.desktopForm.$invalid}">Desktop <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.desktopForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.desktop.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.desktop.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.desktop.enabled">
+          <label class="control-label">Color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.desktop.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.desktop.color" name="desktopColor"
+              required />
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.desktop.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.desktop.x" name="desktopX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.desktop.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.desktop.y" name="desktopY" required>
+        </div>
+        <div ng-if="vm.config.desktop.enabled" class="form-group">
+          <label class="control-label">Projects</label>
+          <div ng-repeat="project in vm.config.desktop.projects track by $index" class="accordion-subsection form-group">
+            <div class="form-group">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" ng-model="project.name" name="project{{$index}}Name" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">WWW</label>
+              <input type="text" class="form-control" ng-model="project.address" name="project{{$index}}Address">
+            </div>
+            <div class="form-group">
+              <label class="control-label">Color</label>
+              <div class="colorpicker-wrapper">
+                <span class="color-preview" ng-attr-style="background-color: {{vm.config.project1.color}}"></span>
+                <input colorpicker="hex" class="form-control" colorpicker-size="209" type="text" ng-model="project.color" name="project{{$index}}Color"
+                  required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Logo Path</label>
+              <input type="text" class="form-control" ng-model="project.logo" name="project{{$index}}Logo" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Content type</label>
+              <ui-select ng-model="project.contentType" theme="bootstrap" search-enabled="false">
+                <ui-select-match placeholder="Select content type">{{$select.selected}}</ui-select-match>
+                <ui-select-choices repeat="item in vm.desktopContentTypes">
+                  <div ng-bind-html="item"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group" ng-if="project.contentType == 'url'">
+              <label class="control-label">Project URL</label>
+              <input type="text" class="form-control" ng-model="project.url" name="desktopUrl" required>
+            </div>
+            <div class="form-group" ng-if="project.contentType == 'html'">
+              <label class="control-label">HTML Project path</label>
+              <input type="text" class="form-control" ng-model="project.path" name="desktopPath" required>
+            </div>
+            <div ng-if="project.contentType == 'slides'">
+              <div class="form-group" ng-repeat="slide in project.slides track by $index">
+                <label class="control-label">Slide {{$index + 1}} image</label>
+
+                <div class="input-group w-100">
+
+                  <input type="text" class="form-control" ng-model="project.slides[$index]" name="desktopSlide{{$index}}" required>
+                  <span class="input-group-btn" ng-if="$index>0 && slide.length">
+                    <button class="btn btn-default" ng-click="vm.removeSlide(project.slides, $index)" type="button">Remove</button>
+                </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info" ng-click="vm.addSlide(project.slides)">Add another slide</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-secondary btn-sm" ng-if="$index>0" ng-click="vm.removeProject(vm.config.desktop.projects, $index)">Remove Project</button>
+            </div>
+          </div>
+          <button class="btn btn-info" ng-click="vm.addProject(vm.config.desktop.projects)">Add another project</button>
+        </div>
+
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.project1Form.$invalid}">Project #1 <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.project1Form" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.project1.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.project1.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.project1.x" name="project1X" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.project1.y" name="project1Y" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.project1.rotation" name="project1Rotation" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Logo path</label>
+          <input type="text" class="form-control" ng-model="vm.config.project1.logoPath" name="project1Logo" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Left image</label>
+          <input type="text" class="form-control" ng-model="vm.config.project1.leftImage" name="project1LeftImage" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Right image</label>
+          <input type="text" class="form-control" ng-model="vm.config.project1.rightImage" name="project1RightImage" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project1.enabled">
+          <label class="control-label">Briefcase color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.project1.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.project1.color" name="project1Color"
+              required />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default" ng-if="vm.config.project1.enabled">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.project2Form.$invalid}">Project #2 <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.project2Form" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.project2.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.project2.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.project2.x" name="project2X" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.project2.y" name="project2Y" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.project2.rotation" name="project2Rotation" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Logo path</label>
+          <input type="text" class="form-control" ng-model="vm.config.project2.logoPath" name="project2Logo" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Left image</label>
+          <input type="text" class="form-control" ng-model="vm.config.project2.leftImage" name="project2LeftImage" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Right image</label>
+          <input type="text" class="form-control" ng-model="vm.config.project2.rightImage" name="project2RightImage" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project2.enabled">
+          <label class="control-label">Briefcase color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.project2.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.project2.color" name="project2Color"
+              required/>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default" ng-if="vm.config.project1.enabled && vm.config.project2.enabled">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.project3Form.$invalid}">Project #3 <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.project3Form" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.project3.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.project3.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.project3.x" name="project3X" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.project3.y" name="project3Y" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.project3.rotation" name="project3Rotation" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Logo path</label>
+          <input type="text" class="form-control" ng-model="vm.config.project3.logoPath" name="project3Logo" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Left image</label>
+          <input type="text" class="form-control" ng-model="vm.config.project3.leftImage" name="project3LeftImage" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Right image</label>
+          <input type="text" class="form-control" ng-model="vm.config.project3.rightImage" name="project3RightImage" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.project3.enabled">
+          <label class="control-label">Briefcase color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.project3.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.project3.color" name="project3Color"
+              required />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.postcardForm.$invalid}">Postcard <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.postcardForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.postcard.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.postcard.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.postcard.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.postcard.x" name="postcardX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.postcard.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.postcard.y" name="postcardY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.postcard.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.postcard.rotation" name="postcardRotation" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.postcard.enabled">
+          <label class="control-label">Your contact e-mail</label>
+          <input type="email" class="form-control" ng-model="vm.config.postcard.email" name="postcardEmail" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.businesscardForm.$invalid}">Businesscard <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.businesscardForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.businesscard.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.businesscard.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.businesscard.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.businesscard.x" name="businesscardX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.businesscard.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.businesscard.y" name="businesscardY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.businesscard.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.businesscard.rotation" name="businesscardRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.resumeForm.$invalid}">Resume <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.resumeForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.resume.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.resume.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.resume.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.resume.x" name="resumeX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.resume.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.resume.y" name="resumeY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.resume.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.resume.rotation" name="resumeRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.coffeeForm.$invalid}">Coffee <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.coffeeForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.coffee.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.coffee.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.coffee.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.coffee.x" name="coffeeX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.coffee.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.coffee.y" name="coffeeY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.coffee.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.coffee.rotation" name="coffeeRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.mouseForm.$invalid}">Mouse <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.mouseForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.mouse.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.mouse.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.mouse.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.mouse.x" name="mouseX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.mouse.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.mouse.y" name="mouseY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.mouse.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.mouse.rotation" name="mouseRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.keyboardForm.$invalid}">Keyboard <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.keyboardForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.keyboard.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.keyboard.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.keyboard.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.keyboard.x" name="keyboardX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.keyboard.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.keyboard.y" name="keyboardY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.keyboard.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.keyboard.rotation" name="keyboardRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.leftSpeakerForm.$invalid}">Left speaker <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.leftSpeakerForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.leftSpeaker.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.leftSpeaker.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.leftSpeaker.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.leftSpeaker.x" name="leftSpeakerX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.leftSpeaker.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.leftSpeaker.y" name="leftSpeakerY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.leftSpeaker.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.leftSpeaker.rotation" name="leftSpeakerRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.rightSpeakerForm.$invalid}">Right speaker <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.rightSpeakerForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.rightSpeaker.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.rightSpeaker.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.rightSpeaker.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.rightSpeaker.x" name="rightSpeakerX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.rightSpeaker.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.rightSpeaker.y" name="rightSpeakerY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.rightSpeaker.enabled">
+          <label class="control-label">Rotation</label>
+          <input type="number" class="form-control" ng-model="vm.config.rightSpeaker.rotation" name="rightSpeakerRotation" required>
+        </div>
+      </form>
+    </div>
+    <div uib-accordion-group class="panel-default">
+      <uib-accordion-heading>
+        <span class="accordion-heading" ng-class="{'invalid-heading': vm.forms.tableLampForm.$invalid}">Table lamp <i class="warning-icon fa fa-exclamation-triangle"></i></span>
+      </uib-accordion-heading>
+      <form name="vm.forms.tableLampForm" novalidate>
+        <div class="form-group">
+          <label class="control-label">Enabled</label>
+          <div>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.tableLamp.enabled" ng-value="true" name="shadowradio">Yes</label>
+            <label class="radio-inline"><input type="radio" ng-model="vm.config.tableLamp.enabled" ng-value="false" name="shadowradio">No</label>
+          </div>
+        </div>
+        <div class="form-group" ng-if="vm.config.tableLamp.enabled">
+          <label class="control-label">Position X</label>
+          <input type="number" class="form-control" ng-model="vm.config.tableLamp.x" name="tableLampX" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.tableLamp.enabled">
+          <label class="control-label">Position Y</label>
+          <input type="number" class="form-control" ng-model="vm.config.tableLamp.y" name="tableLampY" required>
+        </div>
+        <div class="form-group" ng-if="vm.config.tableLamp.enabled">
+          <label class="control-label">Color</label>
+          <div class="colorpicker-wrapper">
+            <span class="color-preview" ng-attr-style="background-color: {{vm.config.tableLamp.color}}"></span>
+            <input colorpicker="hex" class="form-control" colorpicker-size="251" type="text" ng-model="vm.config.tableLamp.color" name="tableLampColor"
+              required />
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </uib-accordion>
+
+</div>
+<div class="form-group action-buttons">
+  <button class="btn btn-info btn-lg btn-block" ng-click="vm.preview()" ng-disabled="vm.anyFormInvalid()">Preview</button>
+  <button class="btn btn-success btn-block" ng-click="vm.download()" ng-disabled="vm.anyFormInvalid()">Save config</button>
+</div>

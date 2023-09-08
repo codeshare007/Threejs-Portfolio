@@ -1,0 +1,29 @@
+{
+  "name": "three.js-table",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.8.14"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "browserify-ngannotate": "^2.0.0",
+    "del": "^1.1.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-rev": "^10.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-usemin": "^0.3.30",
+    "gulp-webserver": "^0.9.1",
+    "sass": "^1.57.1"
+  }
+}

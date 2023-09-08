@@ -1,0 +1,9 @@
+<div class="mobile-slides-holder">
+  <ks-swiper-container class="swiper-container" swiper="swiper" on-ready="vm.desktopSwiperReady(swiper)">
+    <ks-swiper-slide ng-repeat="image in desktopVm.currentProject.slides">
+      <div class="single-slide" ng-attr-style="background-image:url('/images/{{image}}')">
+
+      </div>
+    </ks-swiper-slide>
+  </ks-swiper-container>
+</div>

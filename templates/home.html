@@ -1,0 +1,22 @@
+<div ng-controller="homeCtrl as vm">
+  <div id="homeWrapper">
+    <div class="display-wrapper" ng-include="'templates/tablet/tablet.template.html'" ng-class="{'visible': vm.getConfigObject('tablet').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('tablet').screenHeight}}px; width: {{vm.getConfigObject('tablet').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/businessCard/businessCard.template.html'" ng-class="{'visible': vm.getConfigObject('businessCard').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('businessCard').screenHeight}}px; width: {{vm.getConfigObject('businessCard').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/personalResume/personalResume.template.html'" ng-class="{'visible': vm.getConfigObject('personalResume').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('personalResume').screenHeight}}px; width: {{vm.getConfigObject('personalResume').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/phone/phone.template.html'" ng-class="{'visible': vm.getConfigObject('phone').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('phone').screenHeight}}px; width: {{vm.getConfigObject('phone').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/desktop/desktop.template.html'" ng-class="{'visible': vm.getConfigObject('desktop').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('desktop').screenHeight}}px; width: {{vm.getConfigObject('desktop').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/postCard/postCard.template.html'" ng-class="{'visible': vm.getConfigObject('postCard').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('postCard').screenHeight}}px; width: {{vm.getConfigObject('postCard').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/portfolio/portfolio1.template.html'" ng-class="{'visible': vm.getConfigObject('portfolio1').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('portfolio1').screenHeight}}px; width: {{vm.getConfigObject('portfolio1').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/portfolio/portfolio2.template.html'" ng-class="{'visible': vm.getConfigObject('portfolio2').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('portfolio2').screenHeight}}px; width: {{vm.getConfigObject('portfolio2').screenWidth}}px;"></div>
+    <div class="display-wrapper" ng-include="'templates/portfolio/portfolio3.template.html'" ng-class="{'visible': vm.getConfigObject('portfolio3').screenVisible}"
+      ng-attr-style="height: {{vm.getConfigObject('portfolio3').screenHeight}}px; width: {{vm.getConfigObject('portfolio3').screenWidth}}px;"></div>
+  </div>
+</div>

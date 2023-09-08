@@ -1,0 +1,189 @@
+﻿{
+  "basic": {
+    "socials": [
+      {
+        "icon": "linkedin",
+        "url": "https://www.linkedin.com/sam-hernandez",
+        "name": "LinkedIn"
+      },
+      {
+        "icon": "github",
+        "url": "https://github.com/tsgold8899",
+        "name": "Github"
+      }
+    ],
+    "heading": "Sam Hernandez",
+    "subheading": "Full Stack Developer",
+    "about": "Hello, I'm Sam and this is my extraordinary portfolio. Unfortunately you are on a mobile device and you can't see my works. Please come back here on desktop."
+  },
+  "general": {
+    "shadows": false,
+    "downscale": false,
+    "cameraType": {
+      "model": "Top Front Left",
+      "distance": 140
+    },
+    "elastic": true,
+    "bgColor": "#055099",
+    "antialiasing": true,
+    "lightType": {
+      "model": "Top",
+      "distance": 140
+    },
+    "lightIntensity": 0.6,
+    "ambientIntensity": 0.3
+  },
+  "phone": {
+    "contentType": "url",
+    "color": "#ffffff",
+    "slides": [
+      ""
+    ],
+    "x": 0,
+    "y": 5,
+    "swiperInstance": {},
+    "rotation": 0,
+    "url": "https://blackrockdigital.github.io/startbootstrap-clean-blog/",
+    "enabled": true
+  },
+  "tablet": {
+    "contentType": "url",
+    "url": "https://blackrockdigital.github.io/startbootstrap-clean-blog/",
+    "color": "#ffffff",
+    "slides": [
+      ""
+    ],
+    "x": -21,
+    "y": 12,
+    "swiperInstance": {},
+    "rotation": 0,
+    "enabled": true
+  },
+  "desktop": {
+    "color": "#ffffff",
+    "x": 0,
+    "y": -30,
+    "enabled": true,
+    "rotation": 0,
+    "projects": [
+      {
+        "name": "Example StartBootstrap 1",
+        "address": "http://samplebootstrap.com",
+        "color": "#ecf0f1",
+        "logo": "images/logo-black.png",
+        "contentType": "url",
+        "swiperInstance": {},
+        "slides": [
+          "mobile-screen-1.png",
+          "mobile-screen-2.png",
+          "mobile-screen-3.png"
+        ],
+        "url": "https://blackrockdigital.github.io/startbootstrap-freelancer/"
+      },
+      {
+        "name": "Example StartBootstrap 2",
+        "address": "https://blackrockdigital.github.io/startbootstrap-agency/",
+        "color": "#ecf0f1",
+        "logo": "images/logo-black.png",
+        "contentType": "url",
+        "swiperInstance": {},
+        "slides": [
+          ""
+        ],
+        "url": "https://blackrockdigital.github.io/startbootstrap-agency/"
+      }
+    ]
+  },
+  "desk": {
+    "width": 90,
+    "height": 60,
+    "length": 150,
+    "thickness": 6,
+    "color": "#bfd5c9"
+  },
+  "project1": {
+    "x": 45,
+    "y": 15,
+    "rotation": -15,
+    "logoPath": "images/photoLogo.jpg",
+    "color": "#34495e",
+    "leftImage": "images/photographyPortfolio1.jpg",
+    "rightImage": "images/photographyPortfolio2.jpg",
+    "enabled": true
+  },
+  "project2": {
+    "x": -20,
+    "y": -15,
+    "rotation": 5,
+    "logoPath": "images/designLogo.jpg",
+    "color": "#7e00ff",
+    "leftImage": "images/designPortfolio1.jpg",
+    "rightImage": "images/designPortfolio2.jpg",
+    "enabled": true
+  },
+  "project3": {
+    "x": -45,
+    "y": -15,
+    "rotation": -3,
+    "logoPath": "images/corpoLogo.jpg",
+    "color": "#e74c3c",
+    "leftImage": "images/corpoPortfolio1.jpg",
+    "rightImage": "images/corpoPortfolio2.jpg",
+    "enabled": true
+  },
+  "postcard": {
+    "x": -45,
+    "y": 8,
+    "rotation": 0,
+    "email": "samhernandez@gmail.com",
+    "enabled": true
+  },
+  "businesscard": {
+    "x": 0,
+    "y": -15,
+    "enabled": true,
+    "rotation": 40
+  },
+  "resume": {
+    "x": 20,
+    "y": -10,
+    "rotation": 0,
+    "enabled": true
+  },
+  "coffee": {
+    "enabled": true,
+    "x": 40,
+    "y": -10,
+    "rotation": -10
+  },
+  "keyboard": {
+    "enabled": true,
+    "x": 0,
+    "y": 30,
+    "rotation": 0
+  },
+  "mouse": {
+    "enabled": true,
+    "x": 25,
+    "y": 15,
+    "rotation": 0
+  },
+  "leftSpeaker": {
+    "enabled": true,
+    "x": -35,
+    "y": -35,
+    "rotation": 10
+  },
+  "rightSpeaker": {
+    "enabled": true,
+    "x": 35,
+    "y": -35,
+    "rotation": -10
+  },
+  "tableLamp": {
+    "enabled": true,
+    "x": 50,
+    "y": -30,
+    "color": "#34495e"
+  }
+}
